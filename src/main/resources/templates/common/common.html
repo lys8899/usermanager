@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="common_header(title,links)">
+
+    <title th:replace="${title}"></title>
+
+    <!-- Common styles and scripts -->
+    <!-- <meta id="csrf_t" name="_csrf" th:content="${_csrf.token}"/>
+     <meta id="csrf_h" name="_csrf_header" th:content="${_csrf.headerName}"/>-->
+    <base th:href="@{'/'}"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/element.css">
+    <script src="js/vue.js"></script>
+    <script src="js/element.js"></script>
+    <script src="js/axios.js"></script>
+    <script src="js/jquery-2.1.4.js"></script>
+
+    <!--/* Per-page placeholder for additional links */-->
+    <th:block th:replace="${links}"/>
+</head>
+<body>
+
+<div th:fragment="common_aside(default)">
+    <el-menu th:default-active="${default}" unique-opened="true">
+        <el-menu-item index="1">
+            <i class="el-icon-menu"></i>
+            <span slot="title">首页</span>
+        </el-menu-item>
+        <el-submenu index="2">
+            <template slot="title"><i class="el-icon-message"></i>用户管理</template>
+            <el-menu-item-group>
+                <a href="page/users">
+                    <el-menu-item index="2-1">用户列表</el-menu-item>
+                </a>
+                <el-menu-item index="2-2">用户注册</el-menu-item>
+                <el-menu-item index="2-3">角色管理</el-menu-item>
+            </el-menu-item-group>
+        </el-submenu>
+        <el-submenu index="3">
+            <template slot="title"><i class="el-icon-menu"></i>系统功能</template>
+            <el-menu-item-group>
+                <el-menu-item index="3-1">系统总览</el-menu-item>
+                <el-menu-item index="3-3">功能操作</el-menu-item>
+            </el-menu-item-group>
+        </el-submenu>
+    </el-menu>
+</div>
+
+
+<div>
+    <el-dropdown>
+  <span class="el-dropdown-link">
+    下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+  </span>
+        <el-dropdown-menu slot="dropdown">
+            <a href="logout">
+                <el-dropdown-item>注销</el-dropdown-item>
+            </a>
+        </el-dropdown-menu>
+    </el-dropdown>
+</div>
+
+</body>
+</html>

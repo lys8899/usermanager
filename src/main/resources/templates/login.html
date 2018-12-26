@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/common :: common_header(~{::title},~{::link})">
+    <title>登陆页面</title>
+    <link rel="stylesheet" type="text/css" href="css/element.css">
+</head>
+
+<body>
+
+<!--<div class="login-box" id="app">
+    <el-row>
+        <el-col :span="8">
+            <el-input id="name" v-model="username" placeholder="请输入帐号">
+                <template slot="prepend">帐号</template>
+            </el-input>
+        </el-col>
+    </el-row>
+    <el-row>
+        <el-col :span="8">
+            <el-input id="password" v-model="password" type="password" placeholder="请输入密码">
+                <template slot="prepend">密码</template>
+            </el-input>
+        </el-col>
+    </el-row>
+    <el-row>
+        <el-col :span="8">
+            <el-button id="login" v-on:click="login" style="width:100%" type="primary">登录</el-button>
+        </el-col>
+    </el-row>
+</div>-->
+
+
+<span th:if="${loginError}">用户名或密码错误！</span>
+<span th:if="${loginError}" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></span>
+
+
+<form th:action="@{/loginOn}" method="post">
+    <input type="text" id="username" name="username"/>
+    <input type="password" id="password" name="password"/>
+    <button type="submit" class="btn">登陆</button>
+</form>
+
+
+<!--<template>
+    <el-radio v-model="radio" label="1">备选项</el-radio>
+    <el-radio v-model="radio" label="2">备选项</el-radio>
+</template>-->
+
+</body>
+
+<!--<script>
+    axios.defaults.headers.post[$("#csrf_h").attr("content")] = $("#csrf_t").attr("content");
+    var app = new Vue({
+        el: "#app",
+        data: {
+            username: '',
+            password: ''
+        },
+        methods: {
+            login: function () {
+                axios.post('/loginOn', {
+                    username: app.username,
+                    password: app.password
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
+    });
+
+</script>-->
+
+</html>
