@@ -4,6 +4,7 @@ package com.lys.usermanager.config;
 import com.lys.usermanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,13 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user*").permitAll()
                 .antMatchers("/oauth/*").permitAll()
-                .antMatchers("/role*").permitAll()
+                .antMatchers("/login*").permitAll()
+                .antMatchers("/error*").permitAll()
                 .anyRequest().authenticated() //其他所有资源都需要认证，登陆后访问
                 .antMatchers("/hello").hasAuthority("ADMIN")
                 .and()
                 .formLogin().loginProcessingUrl("/loginOn")
                 .defaultSuccessUrl("/page/index", true)
-                .loginPage("/login/page")
+                .loginPage("/login")
                 .permitAll()
                 .and()
                 .logout().logoutUrl("/logout")
@@ -56,7 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-
         auth.eraseCredentials(true);
     }
 
@@ -71,21 +72,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/js/**", "/css/**", "/webjars/**");
     }
 
-    @Override
+    /*@Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
+    }*/
 
 
-    @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
+    /*@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
     public static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
         @Override
         protected MethodSecurityExpressionHandler createExpressionHandler() {
             return new OAuth2MethodSecurityExpressionHandler();
         }
 
-    }
+    }*/
 
 
 }
