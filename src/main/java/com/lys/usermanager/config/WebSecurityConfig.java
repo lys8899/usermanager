@@ -4,7 +4,6 @@ package com.lys.usermanager.config;
 import com.lys.usermanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
 
 
 /**
@@ -24,7 +22,7 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
  *
  * @author liyongsen
  */
-@EnableWebSecurity
+@EnableWebSecurity(debug = false)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -34,16 +32,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/user*").permitAll()
+                .antMatchers("/*").permitAll()
+                .antMatchers("/*/*").permitAll()
                 .antMatchers("/oauth/*").permitAll()
                 .antMatchers("/login*").permitAll()
                 .antMatchers("/error*").permitAll()
+                .antMatchers("/druid*").permitAll()
                 .anyRequest().authenticated() //其他所有资源都需要认证，登陆后访问
-                .antMatchers("/hello").hasAuthority("ADMIN")
+                /*.antMatchers("/page/*").permitAll()*/
                 .and()
                 .formLogin().loginProcessingUrl("/loginOn")
                 .defaultSuccessUrl("/page/index", true)
-                .loginPage("/login")
+                .loginPage("/page/login")
                 .permitAll()
                 .and()
                 .logout().logoutUrl("/logout")
@@ -72,21 +72,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/js/**", "/css/**", "/webjars/**");
     }
 
-    /*@Override
+    @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }*/
+    }
 
 
-    /*@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
-    public static class GlobalSecurityConfiguration extends GlobalMethodSecurityConfiguration {
-        @Override
-        protected MethodSecurityExpressionHandler createExpressionHandler() {
-            return new OAuth2MethodSecurityExpressionHandler();
-        }
 
-    }*/
 
 
 }

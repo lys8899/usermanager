@@ -2,7 +2,7 @@ package com.lys.usermanager.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.web.WebAttributes;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +38,7 @@ public class LoginController {
      *
      * @date 2017/12/20 10:2
      */
-    @GetMapping("/login-error")
+    /*@GetMapping("/login-error")
     public ModelAndView goToPageLoginError(HttpSession session) {
         RuntimeException attribute = (RuntimeException) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         String message = attribute.getMessage();
@@ -46,7 +46,7 @@ public class LoginController {
         ModelAndView modelAndView=new ModelAndView("login");
         modelAndView.addObject("loginError", true);
         return modelAndView;
-    }
+    }*/
 
 
     /**

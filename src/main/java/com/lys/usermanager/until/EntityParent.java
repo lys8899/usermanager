@@ -1,9 +1,13 @@
 package com.lys.usermanager.until;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 /**
  * @description: 实体类必备属性
@@ -11,37 +15,35 @@ import java.util.Date;
  * @create: 2018-09-08 12:21
  **/
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public class EntityParent {
 
     @Id
     @GeneratedValue(generator = "idGenerator")
     @GenericGenerator(name = "idGenerator", strategy = "uuid")
     private String id;
-
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date gmtCreate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date gmtModified;
+    @CreatedDate
+    private LocalDateTime gmtCreate;
+    @LastModifiedDate
+    private LocalDateTime gmtModified;
 
     @Version
     private Long version;
 
 
-    public Date getGmtCreate() {
+    public LocalDateTime getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
+    public void setGmtCreate(LocalDateTime gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
-    public Date getGmtModified() {
+    public LocalDateTime getGmtModified() {
         return gmtModified;
     }
 
-    public void setGmtModified(Date gmtModified) {
+    public void setGmtModified(LocalDateTime gmtModified) {
         this.gmtModified = gmtModified;
     }
 

@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,6 +39,9 @@ public class User extends EntityParent implements UserDetails {
 
     @Column(name = "u_phone")
     private String phone;
+
+    @Column(name = "u_birthday")
+    private LocalDate birthday;
 
 
     @ManyToMany(cascade = {CascadeType.REMOVE})
@@ -143,6 +147,13 @@ public class User extends EntityParent implements UserDetails {
         this.roles = roles;
     }
 
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
 
     @Override
     public String toString() {
