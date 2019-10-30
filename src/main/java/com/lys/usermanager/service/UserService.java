@@ -1,7 +1,8 @@
 package com.lys.usermanager.service;
 
 
-import com.lys.usermanager.entity.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.lys.usermanager.entity.SysUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,12 +18,12 @@ import java.util.Set;
 public interface UserService extends UserDetailsService {
 
     /**
-     * 保存用户
+     * 新增用户
      *
-     * @param user
+     * @param sysUser
      * @return 保存后的对象
      */
-    User saveUser(User user);
+    SysUser addUser(SysUser sysUser) throws JsonProcessingException;
 
     /**
      * 根据用户id删除用户
@@ -37,14 +38,39 @@ public interface UserService extends UserDetailsService {
      * @param id
      * @return
      */
-    Optional<User> getUserById(String id);
+    Optional<SysUser> getUserById(String id);
 
     /**
-     * @param name      姓名
-     * @param pageable  分页
+     * 根据id查询
+     *
+     * @param id
+     * @return
+     */
+    Optional<SysUser> getUserByIdAll(String id);
+
+    /**
+     * 根据姓名查询用户
+     *
+     * @param name     姓名
+     * @param pageable 分页
      * @return UserDO 用户信息
-     * @Description 根据账号查询用户
      * @date 2017/11/30 15:5
      */
-    Page<User> listTable(String name, Pageable pageable);
+    Page<SysUser> listTable(String name, Pageable pageable);
+
+    /**
+     * 修改密码
+     *
+     * @param userId      用户id
+     * @param oldPassword 老密码
+     * @param newPassword 新密码
+     * @param version     乐观锁
+     * @return 1, 成功；2，用户不存在；3，原始密码错误
+     */
+    int changePassword(String userId, String oldPassword, String newPassword, Long version) throws JsonProcessingException;
+
+
+    void bindUserAndRoles(String userId, String[] roleIds);
+
+
 }

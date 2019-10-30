@@ -1,6 +1,10 @@
 package com.lys.usermanager.service;
 
-import com.lys.usermanager.entity.Role;
+import com.lys.usermanager.entity.SysRole;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * @description: 角色
@@ -9,5 +13,18 @@ import com.lys.usermanager.entity.Role;
  **/
 public interface RoleService {
 
-    Role saveRole(Role role);
+    SysRole saveRole(SysRole sysRole);
+
+    List<SysRole> findRolesByUserId(String userId);
+
+    /**
+     * 根据用户id删除角色
+     *
+     * @param roleIds
+     */
+    void deleteRoles(Set<String> roleIds);
+
+    Optional<SysRole> findById(String id);
+
+
 }

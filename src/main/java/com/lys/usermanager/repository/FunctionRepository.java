@@ -1,6 +1,6 @@
 package com.lys.usermanager.repository;
 
-import com.lys.usermanager.entity.Function;
+import com.lys.usermanager.entity.SysFunction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author: LiYongSen[825760990@qq.com]
  * @create: 2018-09-08 15:00
  **/
-public interface FunctionRepository extends JpaRepository<Function, Long> {
+public interface FunctionRepository extends JpaRepository<SysFunction, String> {
 }

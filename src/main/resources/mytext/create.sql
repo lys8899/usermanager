@@ -1,9 +1,9 @@
-drop user hellowWord cascade;
-create user hellowWord
+drop sysUser hellowWord cascade;
+create sysUser hellowWord
   identified by "hellowWord"
   default tablespace duanxindata;
 
--- Grant/Revoke role privileges
+-- Grant/Revoke sysRole privileges
 grant connect to hellowWord;
 grant resource to hellowWord;
 -- Grant/Revoke system privileges

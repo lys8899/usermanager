@@ -1,12 +1,15 @@
 package com.lys.usermanager.until;
 
+
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -16,43 +19,48 @@ import java.time.LocalDateTime;
  **/
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class EntityParent {
+public class EntityParent implements Serializable {
 
     @Id
     @GeneratedValue(generator = "idGenerator")
     @GenericGenerator(name = "idGenerator", strategy = "uuid")
-    private String id;
+    private String fId;
+
     @CreatedDate
-    private LocalDateTime gmtCreate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private Date fGmtCreate;
+
     @LastModifiedDate
-    private LocalDateTime gmtModified;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private Date fGmtModified;
 
     @Version
     private Long version;
 
-
-    public LocalDateTime getGmtCreate() {
-        return gmtCreate;
+    public String getfId() {
+        return fId;
     }
 
-    public void setGmtCreate(LocalDateTime gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public void setfId(String fId) {
+        this.fId = fId;
     }
 
-    public LocalDateTime getGmtModified() {
-        return gmtModified;
+    public Date getfGmtCreate() {
+        return fGmtCreate;
     }
 
-    public void setGmtModified(LocalDateTime gmtModified) {
-        this.gmtModified = gmtModified;
+    public void setfGmtCreate(Date fGmtCreate) {
+        this.fGmtCreate = fGmtCreate;
     }
 
-    public String getId() {
-        return id;
+    public Date getfGmtModified() {
+        return fGmtModified;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setfGmtModified(Date fGmtModified) {
+        this.fGmtModified = fGmtModified;
     }
 
     public Long getVersion() {
@@ -62,5 +70,4 @@ public class EntityParent {
     public void setVersion(Long version) {
         this.version = version;
     }
-
 }

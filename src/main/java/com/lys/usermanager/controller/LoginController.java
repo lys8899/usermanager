@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
+
 
 
 /**
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
  * @describe 用户登陆
  */
 @RestController
-@RequestMapping(("/login"))
+@RequestMapping(("login"))
 public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
